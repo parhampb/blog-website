@@ -1,0 +1,13 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [
+    ".astro/types.d.ts",
+    "**/*",
+    "node_modules/astro-sage/src/virtual.d.ts"
+  ],
+  "exclude": ["dist", "node_modules/*/**"],
+  "compilerOptions": {
+    // The theme's internals (aliased by its Vite config), for llms.txt.
+    "paths": { "@sage/*": ["./node_modules/astro-sage/src/*"] }
+  }
+}

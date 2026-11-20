@@ -1,0 +1,7 @@
+# Single-package repo; this file only holds pnpm settings.
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true
+patchedDependencies:
+  astro-sage@0.2.1: patches/astro-sage@0.2.1.patch

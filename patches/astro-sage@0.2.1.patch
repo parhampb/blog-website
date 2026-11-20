@@ -1,0 +1,54 @@
+diff --git a/src/components/Header.astro b/src/components/Header.astro
+index 98f6a1b0f410d3a9bb394d6b42b7d7f1766b0ad0..4bff85498a1eab3f1e0310d1ffcc3409bc653858 100644
+--- a/src/components/Header.astro
++++ b/src/components/Header.astro
+@@ -32,6 +32,8 @@ const links = [
+   ...(features.showArchives
+     ? [{ path: "/archives", label: t.nav.archives }]
+     : []),
++  // Site patch: Projects page (src/pages/projects.astro in the site).
++  { path: "/projects", label: "Projects" },
+   { path: "/about", label: t.nav.about },
+ ];
+ ---
+diff --git a/src/layouts/Layout.astro b/src/layouts/Layout.astro
+index cbfc47359d7ceff522a3b7265f1722a54f8e3b1f..69efbf7fa4c6a30edafc0e7491eda12b5e7f6246 100644
+--- a/src/layouts/Layout.astro
++++ b/src/layouts/Layout.astro
+@@ -40,6 +40,21 @@ const {
+ const socialImageURL = new URL(ogImage, Astro.site ?? Astro.url);
+ // A file, so no trailing slash (getRelativeLocaleUrl would add one).
+ const rssHref = `${import.meta.env.BASE_URL.replace(/\/?$/, "/")}rss.xml`;
++// Site patch: schema.org Person on the home and about pages.
++const pagePath = Astro.url.pathname.replace(/\/?$/, "/");
++const personData =
++  pagePath === import.meta.env.BASE_URL.replace(/\/?$/, "/") ||
++  pagePath.endsWith("/about/")
++    ? {
++        "@context": "https://schema.org",
++        "@type": "Person",
++        name: site.author,
++        url: new URL(import.meta.env.BASE_URL, Astro.site).href,
++        sameAs: config.socials
++          .map(s => s.url)
++          .filter(u => /^https?:/.test(u)),
++      }
++    : undefined;
+ // Crawlers check the declared type against the file.
+ const ogImageType = /\.jpe?g$/i.test(socialImageURL.pathname)
+   ? "image/jpeg"
+@@ -125,6 +140,14 @@ const ogImageType = /\.jpe?g$/i.test(socialImageURL.pathname)
+     <!-- Filled at runtime by theme.ts to match the current background colour -->
+     <meta name="theme-color" content="" />
+ 
++    {personData && (
++      <script
++        type="application/ld+json"
++        is:inline
++        set:html={JSON.stringify(personData)}
++      />
++    )}
++
+     <!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) -->
+     <slot name="head" />
+ 
