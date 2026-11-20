@@ -1,0 +1,22 @@
+{
+  // Static site on Cloudflare Workers static assets: no Worker script, just
+  // the files `pnpm build` writes to dist/.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "parhambakhtiari-me",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  },
+  // TODO: uncomment once you're ready to serve the custom domain (README:
+  // "Custom domain"). Cloudflare creates the DNS record and certificate.
+  // "routes": [
+  //   { "pattern": "parhambakhtiari.me", "custom_domain": true },
+  //   { "pattern": "www.parhambakhtiari.me", "custom_domain": true }
+  // ],
+  // workers.dev URL, plus a preview URL for every uploaded version (PR builds).
+  // Once the custom domain is live you can set workers_dev to false.
+  "workers_dev": true,
+  "preview_urls": true
+}
