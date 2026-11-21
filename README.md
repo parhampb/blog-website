@@ -73,11 +73,11 @@ pnpm run check    # type-check content and code (also part of `pnpm build`)
 
 ### Custom domain
 
-DNS is already on Cloudflare, so:
+The domain is registered at Porkbun, with its nameservers pointed at Cloudflare, so Cloudflare manages DNS. Both custom domains are attached through `routes` in `wrangler.jsonc`.
 
-1. Remove any existing `A`, `AAAA` or `CNAME` records for `parhambakhtiari.me` and `www` in the zone. Cloudflare refuses to attach a custom domain over them.
-2. Uncomment `routes` in `wrangler.jsonc` and deploy. Cloudflare creates the DNS records and the certificate. (Or use **Worker → Settings → Domains & Routes → Add → Custom domain**.)
-3. Optional: redirect `www` to the apex with a Redirect Rule (**Rules → Redirect Rules**, `www.parhambakhtiari.me/*` → `https://parhambakhtiari.me/${1}`, 301). Then drop the `www` route.
+1. The zone must have no other `A`, `AAAA` or `CNAME` records for `parhambakhtiari.me` or `www` (for example Porkbun's parking records, which Cloudflare imports when you add the domain). Cloudflare refuses to attach a custom domain over them.
+2. Deploy. Cloudflare creates the DNS records and the certificates. (Or use **Worker → Settings → Domains & Routes → Add → Custom domain**.)
+3. `www` redirects to the apex with a Redirect Rule in the zone (**Rules → Redirect Rules**, template "Redirect from WWW to root": `www.parhambakhtiari.me/*` → `https://parhambakhtiari.me/${1}`, 301, preserve query string). Redirect Rules run before the Worker. Keep the `www` route: it provides the DNS record and certificate the redirect needs.
 4. Once it's live, you can set `workers_dev` to `false`. Leave `preview_urls` on for PR previews.
 
 ## Configuration

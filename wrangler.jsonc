@@ -9,12 +9,14 @@
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
   },
-  // TODO: uncomment once you're ready to serve the custom domain (README:
-  // "Custom domain"). Cloudflare creates the DNS record and certificate.
-  // "routes": [
-  //   { "pattern": "parhambakhtiari.me", "custom_domain": true },
-  //   { "pattern": "www.parhambakhtiari.me", "custom_domain": true }
-  // ],
+  // Custom domains: Cloudflare creates the DNS records and certificates.
+  // www stays attached so it has a DNS record and certificate; a Redirect Rule
+  // in the zone (README: "Custom domain") sends it to the apex before the
+  // request reaches the Worker.
+  "routes": [
+    { "pattern": "parhambakhtiari.me", "custom_domain": true },
+    { "pattern": "www.parhambakhtiari.me", "custom_domain": true }
+  ],
   // workers.dev URL, plus a preview URL for every uploaded version (PR builds).
   // Once the custom domain is live you can set workers_dev to false.
   "workers_dev": true,
