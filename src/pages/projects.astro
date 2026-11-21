@@ -6,90 +6,82 @@ import Footer from "astro-sage/components/Footer.astro";
 import sageConfig from "@sage/config";
 
 type Project = {
-  name: string;
-  summary: string;
-  url: string;
-  tags: string[];
-  status?: string;
+    name: string;
+    summary: string;
+    url: string;
+    tags: string[];
+    status?: string;
 };
 
-const projects: Project[] = [
-  {
-    name: "Sluice",
-    summary:
-      "An open-source (Apache-2.0), self-hosted customer data and segmentation engine, rebuilt in TypeScript.",
-    // TODO: the Sluice GitHub repository URL.
-    url: "https://github.com/TODO/sluice",
-    tags: ["TypeScript", "Event sourcing", "Apache-2.0"],
-    status: "In progress",
-  },
-];
+const projects: Project[] = [];
 
 const title = "Projects";
 const description = "Things I'm building.";
 ---
 
 <Layout title={`${title} | ${sageConfig.site.title}`} {description}>
-  <Header />
-  <Main pageTitle={title} pageDesc={description}>
-    <ul class="projects">
-      {projects.map(p => (
-        <li class="project">
-          <h2>
-            <a href={p.url} rel="noopener">
-              {p.name}
-            </a>
-          </h2>
-          {p.status && <p class="status">{p.status}</p>}
-          <p>{p.summary}</p>
-          <ul class="tags" aria-label={`${p.name} tags`}>
-            {p.tags.map(t => <li>{t}</li>)}
-          </ul>
-        </li>
-      ))}
-    </ul>
-  </Main>
-  <Footer />
+    <Header />
+    <Main pageTitle={title} pageDesc={description}>
+        <ul class="projects">
+            {projects.map((p) => (
+                <li class="project">
+                    <h2>
+                        <a href={p.url} rel="noopener">
+                            {p.name}
+                        </a>
+                    </h2>
+                    {p.status && <p class="status">{p.status}</p>}
+                    <p>{p.summary}</p>
+                    <ul class="tags" aria-label={`${p.name} tags`}>
+                        {p.tags.map((t) => (
+                            <li>{t}</li>
+                        ))}
+                    </ul>
+                </li>
+            ))}
+        </ul>
+    </Main>
+    <Footer />
 </Layout>
 
 <style>
-  .projects {
-    display: grid;
-    gap: 1.25rem;
-    margin-top: 1.5rem;
-  }
-  .project {
-    border: 1px solid var(--border);
-    border-radius: 0.5rem;
-    padding: 1.25rem 1.5rem;
-  }
-  .project h2 {
-    font-size: 1.4rem;
-    font-weight: 600;
-  }
-  .project h2 a:hover {
-    color: var(--accent);
-  }
-  .project p {
-    margin-top: 0.5rem;
-  }
-  .status {
-    font-family: var(--font-ui);
-    font-size: 0.8rem;
-    color: var(--fg-muted);
-  }
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.75rem;
-    font-family: var(--font-ui);
-    font-size: 0.8rem;
-    color: var(--fg-muted);
-  }
-  .tags li {
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 0.1rem 0.6rem;
-  }
+    .projects {
+        display: grid;
+        gap: 1.25rem;
+        margin-top: 1.5rem;
+    }
+    .project {
+        border: 1px solid var(--border);
+        border-radius: 0.5rem;
+        padding: 1.25rem 1.5rem;
+    }
+    .project h2 {
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
+    .project h2 a:hover {
+        color: var(--accent);
+    }
+    .project p {
+        margin-top: 0.5rem;
+    }
+    .status {
+        font-family: var(--font-ui);
+        font-size: 0.8rem;
+        color: var(--fg-muted);
+    }
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+        font-family: var(--font-ui);
+        font-size: 0.8rem;
+        color: var(--fg-muted);
+    }
+    .tags li {
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 0.1rem 0.6rem;
+    }
 </style>

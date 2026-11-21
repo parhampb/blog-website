@@ -48,7 +48,7 @@ const config: SageConfig = {
   },
   home: {
     // TODO: a short intro paragraph for the home page (inline HTML allowed).
-    intro: "TODO: a short intro paragraph about you and what you write here.",
+    intro: 'VP of engineering by day and a hungry associate engineer by night. I write about designing systems that hold up at scale, growing engineers from junior to VP, and what agentic AI actually changes for both. These are my notes as I learn. <a href="/about/">More about me</a>.',
   },
   comments: giscus(),
   posts: { perPage: 8, perIndex: 6 },
